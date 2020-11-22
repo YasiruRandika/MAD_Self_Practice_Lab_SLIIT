@@ -39,11 +39,13 @@ public class MainActivity extends AppCompatActivity {
                     switch (type) {
                         case "Student" :
                             intent = new Intent(MainActivity.this, Student.class);
+                            intent.putExtra("user", userName.getText().toString());
                             startActivity(intent);
                             finish();
                             break;
                         case "Teacher":
                             intent = new Intent(MainActivity.this, Teacher.class);
+                            intent.putExtra("user", userName.getText().toString());
                             startActivity(intent);
                             finish();
                             break;

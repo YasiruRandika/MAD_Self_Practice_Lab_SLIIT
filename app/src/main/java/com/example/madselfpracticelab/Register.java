@@ -40,6 +40,8 @@ public class Register extends AppCompatActivity {
 
                     if (status) {
                         Toast.makeText(Register.this, "Successfully Registered", Toast.LENGTH_SHORT).show();
+                        userName.setText("");
+                        password.setText("");
                         Intent intent = new Intent(Register.this, MainActivity.class);
                         startActivity(intent);
                     } else {
@@ -69,7 +71,7 @@ public class Register extends AppCompatActivity {
         } else if (password.getText().toString().length() == 0) {
             Toast.makeText(this, "Input Password", Toast.LENGTH_SHORT).show();
             return false;
-        } else if (radioGroup.getCheckedRadioButtonId() != btnStudent.getId() || radioGroup.getCheckedRadioButtonId() != btnTeacher.getId()) {
+        } else if (radioGroup.getCheckedRadioButtonId() == 0) {
             Toast.makeText(this, "Input User Type", Toast.LENGTH_SHORT).show();
             return false;
         } else {

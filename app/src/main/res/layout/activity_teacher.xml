@@ -9,6 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/wTeac"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Welcome UserName"
@@ -29,7 +30,6 @@
         android:layout_height="wrap_content"
         android:lines="2"
         android:hint="Message"
-        android:inputType="textPassword"
         android:layout_marginTop="10dp"></EditText>
 
     <Button

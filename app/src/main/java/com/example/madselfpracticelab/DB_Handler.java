@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -49,7 +50,7 @@ public class DB_Handler extends SQLiteOpenHelper {
 
         long status = sqLiteDatabase.insert(TableMaster.User.TABLE_NAME, null, contentValues);
 
-        if (status == 1) {
+        if (status > 0) {
             return true;
         } else {
             return false;
@@ -65,7 +66,7 @@ public class DB_Handler extends SQLiteOpenHelper {
 
         long status = sqLiteDatabase.insert(TableMaster.Message.TABLE_NAME, null, contentValues);
 
-        if (status == 1) {
+        if (status > 0) {
             return true;
         } else {
             return false;
@@ -108,7 +109,7 @@ public class DB_Handler extends SQLiteOpenHelper {
     public String login(String userName, String password) {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
 
-        String[] projection = {TableMaster.User.COLUMN_NAME_PASSWORD};
+        String[] projection = {TableMaster.User.COLUMN_NAME_PASSWORD,  TableMaster.User.COLUMN_NAME_TYPE};
         String selection = TableMaster.User.COLUMN_NAME_USERNAME + " LIKE ?";
         String[] selectionArgs = {userName};
 
@@ -123,12 +124,16 @@ public class DB_Handler extends SQLiteOpenHelper {
         );
 
         if (cursor.moveToFirst()) {
-            if (cursor.getString(cursor.getColumnIndexOrThrow(TableMaster.User.COLUMN_NAME_PASSWORD)) == password) {
+            Log.d("DB", "Moving to first");
+            if (cursor.getString(cursor.getColumnIndexOrThrow(TableMaster.User.COLUMN_NAME_PASSWORD)).equals(password)) {
+                Log.d("DB", cursor.getString(cursor.getColumnIndexOrThrow(TableMaster.User.COLUMN_NAME_TYPE)));
                 return cursor.getString(cursor.getColumnIndexOrThrow(TableMaster.User.COLUMN_NAME_TYPE));
             } else {
+                Log.d("DB", "Not equal");
                 return null;
             }
         } else {
+            Log.d("DB", "Not moving");
             return null;
         }
     }
